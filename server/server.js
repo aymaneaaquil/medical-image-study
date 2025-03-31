@@ -25,6 +25,20 @@ app.post('/submit', (req, res) => {
   res.status(200).json({ message: 'Saved' });
 });
 
+
+app.get('/results', (req, res) => {
+  const filePath = path.join(__dirname, 'data', 'results.json');
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(200).json({ message: 'No results yet.' });
+  }
+
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const data = content ? JSON.parse(content) : [];
+
+  res.json(data);
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
