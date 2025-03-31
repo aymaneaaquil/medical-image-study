@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Description - Medical Image Study</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('background-title-flipped.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-white flex items-center justify-center">
+
+  <div class="bg-white text-black p-8 rounded-lg shadow-lg max-w-3xl w-full mx-4">
+    <h2 class="text-2xl font-bold mb-4">About the Test</h2>
+    <p class="mb-6">
+      You will be shown a series of medical images for a very brief moment. After each image, you'll be asked to decide whether it was real or synthetic. Try to answer as accurately as possible.
+    </p>
+
+
+    <div class="text-center">
+      <button onclick="startTest()" class="bg-green-600 text-white px-6 py-2 rounded">Start</button>
+    </div>
+  </div>
+
+  <script>
+    function startTest() {
+      window.location.href = "testpage.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You - Medical Image Study</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('flipped-background.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center text-white">
+
+  <div class="bg-white text-black p-8 rounded-lg shadow-lg max-w-xl w-full text-center">
+    <h2 class="text-2xl font-bold mb-4">Survey Complete</h2>
+    <p>Thank you for participating in our study!</p>
+  </div>
+
+  <script>
+
+    const name = localStorage.getItem("participantName") || "Unknown";
+    const role = localStorage.getItem("participantRole") || "Unknown";
+    const testResults = JSON.parse(localStorage.getItem("testResults")) || [];
+
+    const realResults = testResults.filter(r => r.isReal);
+    const fakeResults = testResults.filter(r => !r.isReal);
+
+    const realCorrect = realResults.filter(r => r.isCorrect).length;
+    const fakeCorrect = fakeResults.filter(r => r.isCorrect).length;
+
+    const payload = {
+      name,
+      role,
+      realAccuracy: `${realCorrect}/${realResults.length}`,
+      fakeAccuracy: `${fakeCorrect}/${fakeResults.length}`
+    };
+
+    fetch('/submit', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+  </script>
+</body>
+</html>

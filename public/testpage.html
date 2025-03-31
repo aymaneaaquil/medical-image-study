@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Page - Medical Image Study</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: black;
+    }
+    #image-container img {
+      max-width: 100%;
+      max-height: 80vh;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div id="image-container" class="text-center text-white"></div>
+  <div id="button-container" class="hidden flex-col items-center space-y-4 text-center">
+    <button onclick="handleChoice('Real')" class="bg-blue-600 text-white px-6 py-2 rounded">Real</button>
+    <button onclick="handleChoice('Synthetic')" class="bg-red-600 text-white px-6 py-2 rounded">Synthetic</button>
+  </div>
+
+  <script>
+    const imagePaths = [
+      ...Array.from({length: 20}, (_, i) => `images/Real/${i+1}.jpg`),
+      ...Array.from({length: 20}, (_, i) => `images/Synthetic/${i+1}.jpg`)
+    ];
+
+
+    const shuffledImages = imagePaths.sort(() => 0.5 - Math.random());
+
+    let currentIndex = 0;
+    let results = [];
+
+    function showImage() {
+      document.getElementById('button-container').classList.add('hidden');
+      const container = document.getElementById('image-container');
+      container.innerHTML = `<img src="${shuffledImages[currentIndex]}" alt="test image">`;
+
+      setTimeout(() => {
+        container.innerHTML = "";
+        document.getElementById('button-container').classList.remove('hidden');
+      }, 1000);
+    }
+
+    function handleChoice(choice) {
+      const imgPath = shuffledImages[currentIndex];
+      const isReal = imgPath.includes('/Real/');
+      const correct = (choice === 'Real' && isReal) || (choice === 'Synthetic' && !isReal);
+
+      results.push({
+        image: imgPath,
+        userChoice: choice,
+        isCorrect: correct,
+        isReal: isReal
+      });
+
+      currentIndex++;
+      if (currentIndex < shuffledImages.length) {
+        showImage();
+      } else {
+        localStorage.setItem("testResults", JSON.stringify(results));
+        window.location.href = "thankyou.html";
+      }
+    }
+
+    // Start the test
+    showImage();
+  </script>
+</body>
+</html>
