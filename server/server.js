@@ -39,6 +39,10 @@ app.get('/results', (req, res) => {
   res.json(data);
 });
 
+app.get('/result', (req, res) => {
+  res.sendFile(path.join(__dirname, 'results.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
