@@ -1,3 +1,8 @@
 [
-  
+  {
+    "name": "ds",
+    "role": "Doctor",
+    "realAccuracy": "20/20",
+    "fakeAccuracy": "0/20"
+  }
 ]

@@ -40,7 +40,7 @@ app.get('/results', (req, res) => {
 });
 
 app.get('/result', (req, res) => {
-  res.sendFile(path.join(__dirname, 'results.html'));
+  res.sendFile(path.resolve(__dirname, 'results.html'));
 });
 
 app.listen(PORT, () => {
